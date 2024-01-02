@@ -99,12 +99,12 @@ mini-db-router:
         password: ${datasource_password}
       db01:
         driver-class-name: ${datasource_driver}
-        url: ${lottery_datasource_url}
+        url: ${lottery_01_datasource_url}
         username: ${datasource_username}
         password: ${datasource_password}
       db02:
         driver-class-name: ${datasource_driver}
-        url: ${lottery_datasource_url}
+        url: ${lottery_02_datasource_url}
         username: ${datasource_username}
         password: ${datasource_password}
 
