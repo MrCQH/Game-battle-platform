@@ -1,0 +1,33 @@
+server:
+  port: 3000
+
+spring:
+  datasource:
+    url: ${datasource_url}
+    username: ${datasource_username}
+    password: ${datasource_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    driver-class-name: ${datasource_driver}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+dubbo:
+  # 测试时，不启动dubbo
+#  enabled: false
+  application:
+    name: Lottery-comsumer
+    version: 1.0.0
+  registry:
+    id: zk-registry
+    address: zookeeper://${cmrchen2_ip}:2181
+  config-center:
+    address: zookeeper://${cmrchen2_ip}:2181
+  metadata-report:
+    address: zookeeper://${cmrchen2_ip}:2181
+  protocol:
+    name: dubbo
+    port: 20880
+  #    port: -1
+  scan:
+    base-packages: com.mrchen.lottery.rpc.*
