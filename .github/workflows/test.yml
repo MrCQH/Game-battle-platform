@@ -33,7 +33,8 @@ jobs:
           host: ${{ secrets.CMRCHEN1_IP }}
           username: ${{ secrets.CMRCHEN_USER }}
           password: ${{ secrets.CMRCHEN_PASSWORD }}
-          script: echo ${WORKSPACE} && ls && tree .
+          script: |
+            export WORKSPACE=/home/mrchen/cicd_workspace && echo ${WORKSPACE}
           
 
 
