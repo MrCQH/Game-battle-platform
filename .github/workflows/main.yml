@@ -33,7 +33,7 @@ jobs:
           host: ${{ secrets.CMRCHEN1_IP }}
           username: ${{ secrets.CMRCHEN_USER }}
           password: ${{ secrets.CMRCHEN_PASSWORD }}
-          script: bash ~/run.sh
+          script: sh ~/run.sh
 
 
 

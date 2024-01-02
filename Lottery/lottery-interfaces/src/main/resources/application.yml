@@ -77,7 +77,7 @@ spring:
   datasource:
     username: ${datasource_username}
     password: ${datasource_password}
-    url: ${datasource_url}
+    url: ${lottery_datasource_url}
     driver-class-name: ${datasource_driver}
 
 mybatis-plus:
@@ -94,17 +94,17 @@ mini-db-router:
       list: db01,db02
       db00:
         driver-class-name: ${datasource_driver}
-        url: ${datasource_url}
+        url: ${lottery_datasource_url}
         username: ${datasource_username}
         password: ${datasource_password}
       db01:
         driver-class-name: ${datasource_driver}
-        url: ${datasource_url}
+        url: ${lottery_datasource_url}
         username: ${datasource_username}
         password: ${datasource_password}
       db02:
         driver-class-name: ${datasource_driver}
-        url: ${datasource_url}
+        url: ${lottery_datasource_url}
         username: ${datasource_username}
         password: ${datasource_password}
 
