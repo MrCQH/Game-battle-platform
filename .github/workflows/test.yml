@@ -1,0 +1,41 @@
+# 定义构建流程
+name: Build Process
+ 
+# 当代码被推送到存储库时触发工作流
+on: push
+ 
+jobs:
+  # 定义构建作业
+  backend_build:
+    # 在 Ubuntu 环境中运行
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # 步骤：检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+ 
+      # 步骤：设置 Java 环境为 JDK 8，并使用 Corretto 发行版，缓存 Maven
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'corretto'
+          cache: 'maven'
+
+      # cd ~/kob_cicd_workspace &&
+      # git reset --hard HEAD &&
+      # git pull git@github.com:MrCQH/backendcloud.git main &&
+      # mvn -DskipTests package
+      - name: 直接在服务器执行命令/pull/打包/部署到docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CMRCHEN1_IP }}
+          username: ${{ secrets.CMRCHEN_USER }}
+          password: ${{ secrets.CMRCHEN_PASSWORD }}
+          script: echo ${WORKSPACE} && ls && tree .
+          
+
+
+
+
