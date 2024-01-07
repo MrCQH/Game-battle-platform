@@ -188,7 +188,7 @@ public class Game extends Thread{
     }
 
 
-    private boolean stepNext(){ // 判断两端输入是否合法
+    private boolean stepNext(){ // 判断两端是否有输入
         try{
             Thread.sleep(200);
         } catch(InterruptedException e){
@@ -229,8 +229,11 @@ public class Game extends Thread{
         JSONObject resp = new JSONObject();
         resp.put("event", "result");
         resp.put("loser", loser);
+        // 保存数据记录
         saveToDatabase();
+        // 发送对局结果
         sendAllMessage(resp.toJSONString());
+        // 胜利者得到奖励
         executeLottery();
     }
 
@@ -254,6 +257,7 @@ public class Game extends Thread{
     private boolean check_valid(List<Cell> cellsA, List<Cell> cellsB){ // 碰撞检测器
         int n = cellsA.size();
         Cell snackHead = cellsA.get(n - 1);
+        // 头撞墙了
         if (g[snackHead.x][snackHead.y] == 1) return false;
 
         for (int i = 0; i < n - 1; i ++){ // 判断撞自己身体
@@ -271,6 +275,7 @@ public class Game extends Thread{
         List<Cell> cellsB = playerB.getCells();
         boolean validA = check_valid(cellsA, cellsB);
         boolean validB = check_valid(cellsB, cellsA);
+        // 通过status字段判断游戏的进程
         if (!validA || !validB){
             status = "finished";
             if (!validA && !validB){
@@ -338,15 +343,20 @@ public class Game extends Thread{
     @Override
     public void run() {
         for (int i = 0; i < 1000; i ++) { // 保证程序正确不出现死循环
+            // 判断两端是否有输入
             if (stepNext()){
+                // 判断两端输入是否合法，修改status字段
                 judge();
                 if (status.equals("playing")){
+                    // 渲染前端移动
                     sendMove();
                 } else {
+                    // 发送loser结果
                     sendResult();
                     break;
                 }
             } else {
+                // 一方没有输入，直接结束
                 lock.lock();
                 try{
                     if (stepNextA == null && stepNextB == null){
@@ -360,6 +370,7 @@ public class Game extends Thread{
                     lock.unlock();
                 }
                 status = "finished";
+                // 发送loser结果
                 sendResult();
                 break;
             }

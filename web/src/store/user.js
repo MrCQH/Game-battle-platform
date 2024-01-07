@@ -43,6 +43,7 @@ const ModuleUser = {
     },
     // 异步调用
     actions: {
+        // 拿到后端生成的token，存到localStorage里
         login(context, data){
             $.ajax({
                 type: "post",
@@ -65,6 +66,7 @@ const ModuleUser = {
                 }
             });
         },
+        // 拿到后端的用户信息
         getinfo(context, data){
             $.ajax({
                 url: baseUrl.remoteHttpsUrl + "/api/user/account/info/",
